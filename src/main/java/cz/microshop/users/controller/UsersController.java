@@ -24,6 +24,12 @@ public class UsersController {
     UsersService usersService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<HttpStatus> deleteAll()   {
+        usersService.deleteAll();
+        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/deleteAll", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<ArrayList<User>> findAll()   {
         return new ResponseEntity<ArrayList<User>>((ArrayList<User>) usersService.findAll(), HttpStatus.OK);
     }
