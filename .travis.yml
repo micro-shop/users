@@ -9,10 +9,6 @@ install: true
 env:
   - GROUP=micro-shop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
 
-script:
-  - set -e
-  - sudo ./scripts/build.sh;
-
 after_success:
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS;
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
