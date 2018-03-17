@@ -6,7 +6,7 @@ jdk:
   - oraclejdk8
 
 env:
-  - GROUP=micro-shop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
+  - GROUP=microshop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
