@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsersService {
@@ -27,6 +28,7 @@ public class UsersService {
     }
 
     public List<User> create(List<User> orderList) {
+        orderList.forEach(user -> user.setId(UUID.randomUUID()));
         return usersRepository.saveAll(orderList);
     }
 
