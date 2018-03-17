@@ -14,10 +14,10 @@ script:
   - sudo ./scripts/build.sh;
 
 after_success:
-  - set -e;
-  - if [ -z "$DOCKER_PASS" ] ; then
-      echo "This is a build triggered by an external PR. Skipping docker push.";
-      exit 0;
-    fi;
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS;
-  - ./scripts/push.sh
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+          push "$REPO:$TAG";
+  - export NAME=$GROUP/$REPO
+  - docker build -t $NAME:$COMMIT
+  - docker tag $NAME:$COMMIT $NAME:$TAG
+  - docker push $NAME
