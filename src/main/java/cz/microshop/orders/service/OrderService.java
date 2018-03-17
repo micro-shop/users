@@ -1,7 +1,7 @@
-package cz.microshop.catalog.service;
+package cz.microshop.orders.service;
 
-import cz.microshop.catalog.model.Order;
-import cz.microshop.catalog.repository.IOrderRepository;
+import cz.microshop.orders.model.Order;
+import cz.microshop.orders.repository.IOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

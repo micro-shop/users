@@ -1,4 +1,4 @@
-package cz.microshop.catalog.model;
+package cz.microshop.orders.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

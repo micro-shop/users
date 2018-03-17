@@ -1,4 +1,4 @@
-package cz.microshop.catalog.config;
+package cz.microshop.orders.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

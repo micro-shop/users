@@ -1,6 +1,6 @@
-package cz.microshop.catalog.controller;
+package cz.microshop.orders.controller;
 
-import cz.microshop.catalog.model.HealthCheck;
+import cz.microshop.orders.model.HealthCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
-package cz.microshop.catalog.repository;
+package cz.microshop.orders.repository;
 
-import cz.microshop.catalog.model.Order;
+import cz.microshop.orders.model.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 

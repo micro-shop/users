@@ -1,4 +1,4 @@
-package cz.microshop.catalog.config;
+package cz.microshop.orders.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

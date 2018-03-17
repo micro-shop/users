@@ -1,7 +1,7 @@
-package cz.microshop.catalog.controller;
+package cz.microshop.orders.controller;
 
-import cz.microshop.catalog.model.Order;
-import cz.microshop.catalog.service.OrderService;
+import cz.microshop.orders.model.Order;
+import cz.microshop.orders.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

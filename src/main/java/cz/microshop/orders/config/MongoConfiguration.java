@@ -1,4 +1,4 @@
-package cz.microshop.catalog.config;
+package cz.microshop.orders.config;
 
 import com.mongodb.MongoClientOptions;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
