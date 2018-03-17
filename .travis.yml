@@ -34,4 +34,4 @@ after_success:
   - kubectl config use-context default
   #- kubectl rolling-update catalog --image=$IMAGE_VERSION
   - kubectl set image deployment/users users=$IMAGE_VERSION
-  #- kubectl apply -f ./deployment/catalog-deployment.yml
+  #- kubectl apply -f ./deployment/catalog-deployment.yml 
