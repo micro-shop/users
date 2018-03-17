@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,8 +15,15 @@ public class UsersService {
     @Autowired
     private IUsersRepository usersRepository;
 
+    public void deleteAll() {
+        usersRepository.deleteAll();
+    }
+
     public List<User> findAll() {
-        return usersRepository.findAll();
+        ArrayList<User> list = new ArrayList<>();
+        list.add(new User());
+        return list;
+        //return usersRepository.findAll();
     }
 
     public List<User> create(List<User> orderList) {
