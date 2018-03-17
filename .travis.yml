@@ -9,7 +9,7 @@ env:
   - GROUP=micro-shop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
 
 after_success:
-  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS;
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
           push "$REPO:$TAG";
   - export NAME=$GROUP/$REPO
