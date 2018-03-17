@@ -37,4 +37,5 @@ after_success:
   - sed -i -e 's|KUBE_USERNAME|'"${KUBE_USERNAME}"'|g' config
   - sed -i -e 's|KUBE_CONTEXT_NAME|'"${KUBE_CONTEXT_NAME}"'|g' config
   - sed -i -e 's|KUBE_CLUSTER_NAME|'"${KUBE_CLUSTER_NAME}"'|g' config
-  - kubectl set image deployment/<deplyoment name> <deplyoment name>=<your docker registry>/<image name>:<version>
+  - kubectl apply -f .\deployment\deployment.yml
+  #- kubectl set image deployment/<deplyoment name> <deplyoment name>=<your docker registry>/<image name>:<version>
