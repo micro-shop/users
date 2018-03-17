@@ -18,16 +18,18 @@ spec:
         image: microshop/users:latest
         resources:
           limits:
-            cpu: 300m
-            memory: 100Mi
+            cpu: 500m
+            memory: 500Mi
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 200m
+            memory: 500Mi
         ports:
         - containerPort: 80
         env:
         - name: MONGO_HOST
           value: users-db:27017
+        - name: JAVA_OPTS
+          value: -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
         securityContext:
           runAsNonRoot: true
           runAsUser: 10001
