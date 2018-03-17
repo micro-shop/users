@@ -2,20 +2,20 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: orders
+  name: catalog
   labels:
-    name: orders
+    name: catalog
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: orders
+        name: catalog
     spec:
       containers:
-      - name: orders
-        image: microshop/orders:latest
+      - name: catalog
+        image: microshop/catalog:latest
         env:
          - name: ZIPKIN
            value: zipkin.zipkin.svc.cluster.local
