@@ -33,12 +33,17 @@ after_success:
   - cp config ${HOME}/.kube/config
 
   # Fill out missing params in kubectl config file
-  - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' config
-  - sed -i -e 's|KUBE_ENDPOINT|'"${KUBE_ENDPOINT}"'|g' config
-  - sed -i -e 's|KUBE_TRAVIS_CERT|'"${KUBE_TRAVIS_CERT}"'|g' config
-  - sed -i -e 's|KUBE_TRAVIS_KEY|'"${KUBE_TRAVIS_KEY}"'|g' config
-  - sed -i -e 's|KUBE_USERNAME|'"${KUBE_USERNAME}"'|g' config
-  - sed -i -e 's|KUBE_CONTEXT_NAME|'"${KUBE_CONTEXT_NAME}"'|g' config
-  - sed -i -e 's|KUBE_CLUSTER_NAME|'"${KUBE_CLUSTER_NAME}"'|g' config
+  # - sed -i -e 's|KUBE_CA_CERT|'"${KUBE_CA_CERT}"'|g' config
+  # - sed -i -e 's|KUBE_ENDPOINT|'"${KUBE_ENDPOINT}"'|g' config
+  # - sed -i -e 's|KUBE_TRAVIS_CERT|'"${KUBE_TRAVIS_CERT}"'|g' config
+  # - sed -i -e 's|KUBE_TRAVIS_KEY|'"${KUBE_TRAVIS_KEY}"'|g' config
+  # - sed -i -e 's|KUBE_USERNAME|'"${KUBE_USERNAME}"'|g' config
+  # - sed -i -e 's|KUBE_CONTEXT_NAME|'"${KUBE_CONTEXT_NAME}"'|g' config
+  # - sed -i -e 's|KUBE_CLUSTER_NAME|'"${KUBE_CLUSTER_NAME}"'|g' config
+
+  - kubectl config set-credentials default --username=${GKE_USERNAME} --password=${GKE_PASSWORD}
+  - kubectl config set-cluster default --server=${GKE_SERVER} --insecure-skip-tls-verify=true
+  - kubectl config set-context default --cluster=default --user=default
+  - kubectl config use-context default
   - kubectl apply -f .\deployment\deployment.yml
   #- kubectl set image deployment/<deplyoment name> <deplyoment name>=<your docker registry>/<image name>:<version>
