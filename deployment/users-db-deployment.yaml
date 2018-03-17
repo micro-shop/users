@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: users-db
-        image: microshop/users-db:latest
+        image: mongo
 
         ports:
         - name: mongo
