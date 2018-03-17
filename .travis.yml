@@ -4,7 +4,6 @@ services:
   - docker
 jdk:
   - oraclejdk8
-install: true
 
 env:
   - GROUP=micro-shop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
