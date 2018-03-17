@@ -2,19 +2,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: catalog-db
+  name: orders-db
   labels:
-    name: catalog-db
+    name: orders-db
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: catalog-db
+        name: orders-db
     spec:
       containers:
-      - name: catalog-db
+      - name: orders-db
         image: mongo
         ports:
         - name: mongo

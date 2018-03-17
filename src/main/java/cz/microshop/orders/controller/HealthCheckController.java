@@ -22,8 +22,8 @@ public class HealthCheckController {
         List<HealthCheck> healthChecks = new ArrayList<>();
         Date dateNow = Calendar.getInstance().getTime();
 
-        HealthCheck app = new HealthCheck("catalog", "OK", dateNow);
-        HealthCheck database = new HealthCheck("catalog-db", "OK", dateNow);
+        HealthCheck app = new HealthCheck("orders", "OK", dateNow);
+        HealthCheck database = new HealthCheck("orders-db", "OK", dateNow);
 
         try {
             mongoTemplate.executeCommand("{ buildInfo: 1 }");

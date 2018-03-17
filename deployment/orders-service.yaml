@@ -2,14 +2,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog
+  name: orders
   labels:
-    name: catalog
-  namespace: default
+    name: orders
+  namespace: orders
 spec:
   ports:
     # the port that this service should serve on
   - port: 80
     targetPort: 80
   selector:
-    name: catalog
+    name: orders
