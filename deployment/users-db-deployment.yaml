@@ -2,20 +2,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: orders-db
+  name: users-db
   labels:
-    name: orders-db
+    name: users-db
   namespace: default
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: orders-db
+        name: users-db
     spec:
       containers:
-      - name: orders-db
-        image: mongo
+      - name: users-db
+        image: microshop/users-db:latest
+
         ports:
         - name: mongo
           containerPort: 27017

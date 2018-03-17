@@ -1,12 +1,12 @@
-package cz.microshop.orders;
+package cz.microshop.users;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OrdersApplication {
+public class UsersApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrdersApplication.class, args);
+		SpringApplication.run(UsersApplication.class, args);
 	}
 }

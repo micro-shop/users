@@ -2,14 +2,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders
+  name: users-db
   labels:
-    name: orders
-  namespace: orders
+    name: users-db
+  namespace: default
 spec:
   ports:
     # the port that this service should serve on
-  - port: 80
-    targetPort: 80
+  - port: 27017
+    targetPort: 27017
   selector:
-    name: orders
+    name: users-db
+

@@ -1,4 +1,4 @@
-package cz.microshop.orders.model;
+package cz.microshop.users.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
