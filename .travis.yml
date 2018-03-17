@@ -7,14 +7,12 @@ jdk:
 
 env:
   global:
-    - DOCKER_IMAGE_NAME="orders"
-    - K8S_DEPLOYMENT_NAME="orders"
     - COMMIT=${TRAVIS_COMMIT::8}
     - IMAGE=microshop/orders
     - IMAGE_VERSION=$IMAGE:$COMMIT
 
 before_script:
-  - docker build -t $IMAGE:$COMMIT
+  - docker build -t $IMAGE:$COMMIT .
   - docker tag $IMAGE:$COMMIT $IMAGE:latest
   - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
 
