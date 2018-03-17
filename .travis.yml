@@ -13,8 +13,9 @@ env:
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-          push "$REPO:$TAG";
+  # - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  #         push "$REPO:$TAG";
+  - export TAG="latest"
   - export NAME=$GROUP/$REPO
   - docker build -t $NAME:$COMMIT
   - docker tag $NAME:$COMMIT $NAME:$TAG
