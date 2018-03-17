@@ -17,8 +17,8 @@ after_success:
   #         push "$REPO:$TAG";
   - export TAG="latest"
   - export NAME=$GROUP/$REPO
-  - docker build -t $NAME:$COMMIT
-  - docker tag $NAME:$COMMIT $NAME:$TAG
+  - docker build -t $NAME:$TAG
+  - docker tag $NAME:TAG $NAME:$TAG
   - docker push $NAME
 
   # Install kubernetes and set config
