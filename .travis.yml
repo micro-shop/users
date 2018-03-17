@@ -9,17 +9,21 @@ env:
   global:
     - DOCKER_IMAGE_NAME="orders"
     - K8S_DEPLOYMENT_NAME="orders"
-    - GROUP=microshop COMMIT=$TRAVIS_COMMIT TAG=$TRAVIS_TAG REPO=orders;
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - IMAGE=microshop/orders
+    - IMAGE_VERSION=$IMAGE:$COMMIT
+
+before_script:
+  - docker build -t $IMAGE:$COMMIT
+  - docker tag $IMAGE:$COMMIT $IMAGE:latest
+  - docker tag $IMAGE:$COMMIT $IMAGE:travis-$TRAVIS_BUILD_NUMBER
+
+script:
+  - docker version
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  # - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
-  #         push "$REPO:$TAG";
-  - export TAG="latest"
-  - export NAME=$GROUP/$REPO
-  - docker build -t $NAME:$TAG
-  - docker tag $NAME:$TAG $NAME:$TAG
-  - docker push $NAME
+  - docker push $IMAGE
 
   # Install kubernetes and set config
   - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
