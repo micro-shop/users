@@ -1,10 +1,12 @@
 package cz.microshop.users.controller;
 
+import cz.microshop.users.model.Account;
 import cz.microshop.users.model.User;
 import cz.microshop.users.service.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +48,19 @@ public class UsersController {
             return new ResponseEntity<HttpStatus>(HttpStatus.OK);
         else
             return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Account> login(@Param("username") String username, @Param("password") String password) {
+        User u = new User();
+        u.setEmail(username);
+        u.setPassword(password);
+        //ResponseEntity<HttpStatus> httpStatusResponseEntity = authenticateUser(u);
+        Account a = new Account();
+        a.setPassword(password);
+        a.setName(username);
+        return new ResponseEntity<Account>(a, HttpStatus.OK);
 
     }
 
