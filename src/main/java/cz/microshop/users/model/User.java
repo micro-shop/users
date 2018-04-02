@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 //@JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection="user")
@@ -25,10 +24,6 @@ public class User {
     private boolean enabled = true;
     private String postcode;
     private Set<UserRole> userRoles = new HashSet<>();
-
-    public User() {
-        userId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
-    }
 
     public String getAddress() {
         return address;
@@ -124,5 +119,13 @@ public class User {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

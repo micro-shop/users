@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsersService {
@@ -14,12 +15,27 @@ public class UsersService {
     @Autowired
     private IUsersRepository usersRepository;
 
-    public void save(User user) {
-        usersRepository.save(user);
+    public User save(User user) {
+        if (user.getUserId() != null) {
+            User dbUser = find(user.getUserId());
+            if (dbUser != null) user.setId(dbUser.getId());
+        }
+        if (user.getUserId() == null) user.setUserId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+
+        user.getUserRoles().forEach(userRole -> {
+            if (userRole.getId() == null) {
+                userRole.setRoleId(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE);
+            }
+        });
+        return usersRepository.save(user);
     }
 
     public void deleteAll() {
         usersRepository.deleteAll();
+    }
+
+    public User find(Long userId) {
+        return usersRepository.findByUserId(userId);
     }
 
     public List<User> findAll() {

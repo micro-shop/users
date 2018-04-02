@@ -28,4 +28,12 @@ public class UserRole {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 }
