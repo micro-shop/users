@@ -1,5 +1,6 @@
 package cz.microshop.users.controller;
 
+import cz.microshop.users.model.PasswordResetToken;
 import cz.microshop.users.model.User;
 import cz.microshop.users.service.UsersService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -68,6 +70,41 @@ public class UsersController {
         } else {
             return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @RequestMapping(value = "/createPasswordResetToken", method = RequestMethod.POST)
+    public ResponseEntity<PasswordResetToken> createPasswordResetToken(@RequestParam("email") String userEmail) {
+
+        User user = usersService.findByEmail(userEmail);
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken passwordResetToken = new PasswordResetToken();
+        passwordResetToken.setToken(token);
+        passwordResetToken.setUserId(user.getUserId());
+        PasswordResetToken dbToken = usersService.save(passwordResetToken);
+        return new ResponseEntity<>(dbToken, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/validatePasswordResetToken", method = RequestMethod.POST)
+    public ResponseEntity<PasswordResetToken> validatePasswordResetToken(
+            @RequestParam("userId") Long userId,
+            @RequestParam("token") String token) {
+
+        PasswordResetToken passToken = usersService.findToken(token);
+        if ((passToken == null) || (!passToken.getUserId().equals(userId))) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        /*Calendar cal = Calendar.getInstance();
+        if ((passToken.getExpiryDate()
+                .getTime() - cal.getTime()
+                .getTime()) <= 0) {
+            passwordResetTokenDao.delete(passToken);
+            return "expired";
+        }*/
+        return new ResponseEntity<>(passToken, HttpStatus.OK);
     }
 
 }

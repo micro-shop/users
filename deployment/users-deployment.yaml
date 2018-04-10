@@ -5,7 +5,7 @@ metadata:
   name: users
   labels:
     name: users
-  namespace: default
+  namespace: microshop
 spec:
   replicas: 1
   template:

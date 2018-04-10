@@ -1,7 +1,9 @@
 package cz.microshop.users.service;
 
+import cz.microshop.users.model.PasswordResetToken;
 import cz.microshop.users.model.User;
 import cz.microshop.users.repository.IUsersRepository;
+import cz.microshop.users.repository.IUsersResetTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -14,6 +16,8 @@ public class UsersService {
 
     @Autowired
     private IUsersRepository usersRepository;
+    @Autowired
+    private IUsersResetTokenRepository resetTokenRepository;
 
     public User save(User user) {
         if (user.getUserId() != null) {
@@ -30,6 +34,14 @@ public class UsersService {
         return usersRepository.save(user);
     }
 
+    public PasswordResetToken save(PasswordResetToken passwordResetToken) {
+        return resetTokenRepository.save(passwordResetToken);
+    }
+
+    public PasswordResetToken findToken(String token) {
+        return resetTokenRepository.findByToken(token);
+    }
+
     public void deleteAll() {
         usersRepository.deleteAll();
     }
@@ -44,6 +56,10 @@ public class UsersService {
 
     public User findByUsername(String username) {
         return usersRepository.getUserByUsername(username);
+    }
+
+    public User findByEmail(String email) {
+        return usersRepository.getUserByEmail(email);
     }
 
     public List<User> create(List<User> orderList) {

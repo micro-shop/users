@@ -5,7 +5,7 @@ metadata:
   name: users
   labels:
     name: users
-  namespace: default
+  namespace: microshop
 spec:
   ports:
     # the port that this service should serve on
