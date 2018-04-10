@@ -41,8 +41,18 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<User> find(@RequestParam String username)   {
+    public ResponseEntity<User> find(@RequestParam Long id)   {
+        return new ResponseEntity<User>(usersService.find(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findByUsername", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<User> findByUsername(@RequestParam String username)   {
         return new ResponseEntity<User>(usersService.findByUsername(username), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findByEmail", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<User> findByEmail(@RequestParam String email)   {
+        return new ResponseEntity<User>(usersService.findByEmail(email), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -72,7 +82,7 @@ public class UsersController {
         }
     }
 
-    @RequestMapping(value = "/createPasswordResetToken", method = RequestMethod.POST)
+    @RequestMapping(value = "/createPasswordResetToken", method = RequestMethod.GET)
     public ResponseEntity<PasswordResetToken> createPasswordResetToken(@RequestParam("email") String userEmail) {
 
         User user = usersService.findByEmail(userEmail);
@@ -87,14 +97,17 @@ public class UsersController {
         return new ResponseEntity<>(dbToken, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/validatePasswordResetToken", method = RequestMethod.POST)
-    public ResponseEntity<PasswordResetToken> validatePasswordResetToken(
+    @RequestMapping(value = "/validatePasswordResetToken", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> validatePasswordResetToken(
             @RequestParam("userId") Long userId,
             @RequestParam("token") String token) {
 
         PasswordResetToken passToken = usersService.findToken(token);
         if ((passToken == null) || (!passToken.getUserId().equals(userId))) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
+        } else {
+            usersService.deleteToken(passToken);
+            return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
         }
 
         /*Calendar cal = Calendar.getInstance();
@@ -104,7 +117,6 @@ public class UsersController {
             passwordResetTokenDao.delete(passToken);
             return "expired";
         }*/
-        return new ResponseEntity<>(passToken, HttpStatus.OK);
     }
 
 }

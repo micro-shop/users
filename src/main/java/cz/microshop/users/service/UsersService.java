@@ -42,6 +42,10 @@ public class UsersService {
         return resetTokenRepository.findByToken(token);
     }
 
+    public void deleteToken(PasswordResetToken token) {
+        resetTokenRepository.delete(token);
+    }
+
     public void deleteAll() {
         usersRepository.deleteAll();
     }
