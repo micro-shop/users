@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 @RestController
@@ -92,6 +95,7 @@ public class UsersController {
         String token = UUID.randomUUID().toString();
         PasswordResetToken passwordResetToken = new PasswordResetToken();
         passwordResetToken.setToken(token);
+        passwordResetToken.setExpiration(Date.from(Instant.now().plus(Duration.ofDays(1))));
         passwordResetToken.setUserId(user.getUserId());
         PasswordResetToken dbToken = usersService.save(passwordResetToken);
         return new ResponseEntity<>(dbToken, HttpStatus.OK);
@@ -103,20 +107,21 @@ public class UsersController {
             @RequestParam("token") String token) {
 
         PasswordResetToken passToken = usersService.findToken(token);
-        if ((passToken == null) || (!passToken.getUserId().equals(userId))) {
+
+        if (passToken == null || (!passToken.getUserId().equals(userId))) {
+            LOG.error("Unable to validate reset token: " + passToken + " for user: " + userId);
+            return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
+        }
+
+        if (passToken.getExpiration().after(new Date())) {
+            usersService.deleteToken(passToken);
+            LOG.error("Unable to validate reset token: " + passToken + " is Expired");
             return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
         } else {
             usersService.deleteToken(passToken);
+            LOG.debug("Token: " + passToken + " successfully validated");
             return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
         }
-
-        /*Calendar cal = Calendar.getInstance();
-        if ((passToken.getExpiryDate()
-                .getTime() - cal.getTime()
-                .getTime()) <= 0) {
-            passwordResetTokenDao.delete(passToken);
-            return "expired";
-        }*/
     }
 
 }
