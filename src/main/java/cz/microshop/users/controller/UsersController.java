@@ -88,6 +88,8 @@ public class UsersController {
     @RequestMapping(value = "/createPasswordResetToken", method = RequestMethod.GET)
     public ResponseEntity<PasswordResetToken> createPasswordResetToken(@RequestParam("email") String userEmail) {
 
+        usersService.deleteAllToken();
+
         User user = usersService.findByEmail(userEmail);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

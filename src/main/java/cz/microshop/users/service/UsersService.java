@@ -50,6 +50,10 @@ public class UsersService {
         resetTokenRepository.delete(token);
     }
 
+    public void deleteAllToken() {
+        resetTokenRepository.deleteAll();
+    }
+
     public void deleteAll() {
         usersRepository.deleteAll();
     }
