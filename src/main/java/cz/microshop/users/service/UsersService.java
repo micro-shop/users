@@ -2,8 +2,8 @@ package cz.microshop.users.service;
 
 import cz.microshop.users.model.PasswordResetToken;
 import cz.microshop.users.model.User;
-import cz.microshop.users.repository.IUsersRepository;
-import cz.microshop.users.repository.IUsersResetTokenRepository;
+import cz.microshop.users.repository.UsersRepository;
+import cz.microshop.users.repository.UsersResetTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,9 +15,9 @@ import java.util.UUID;
 public class UsersService {
 
     @Autowired
-    private IUsersRepository usersRepository;
+    private UsersRepository usersRepository;
     @Autowired
-    private IUsersResetTokenRepository resetTokenRepository;
+    private UsersResetTokenRepository resetTokenRepository;
 
     public User save(User user) {
         if (user.getUserId() != null) {
