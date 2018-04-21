@@ -92,13 +92,17 @@ public class UsersController {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         String token = UUID.randomUUID().toString();
         PasswordResetToken passwordResetToken = new PasswordResetToken();
         passwordResetToken.setToken(token);
         passwordResetToken.setExpiration(Date.from(Instant.now().plus(Duration.ofDays(1))));
         passwordResetToken.setUserId(user.getUserId());
-        PasswordResetToken dbToken = usersService.save(passwordResetToken);
-        return new ResponseEntity<>(dbToken, HttpStatus.OK);
+        PasswordResetToken dbToken = usersService.findTokenByUserId(user.getUserId());
+        if (dbToken != null) {
+            passwordResetToken.setId(dbToken.getId());
+        }
+        return new ResponseEntity<>(usersService.save(passwordResetToken), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/validatePasswordResetToken", method = RequestMethod.GET)
