@@ -115,7 +115,7 @@ public class UsersController {
 
         if (passToken.getExpiration().after(new Date())) {
             usersService.deleteToken(passToken);
-            LOG.error("Unable to validate reset token: " + passToken + " is Expired");
+            LOG.error("Unable to validate reset token: " + passToken + " :expiration " + passToken.getExpiration() + " is Expired");
             return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
         } else {
             usersService.deleteToken(passToken);
