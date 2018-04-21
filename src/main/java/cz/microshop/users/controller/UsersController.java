@@ -113,7 +113,7 @@ public class UsersController {
             return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
         }
 
-        if (passToken.getExpiration().after(new Date())) {
+        if (passToken.getExpiration().before(new Date())) {
             usersService.deleteToken(passToken);
             LOG.error("Unable to validate reset token: " + passToken + " :expiration " + passToken.getExpiration() + " is Expired");
             return new ResponseEntity<>(Boolean.FALSE, HttpStatus.OK);
