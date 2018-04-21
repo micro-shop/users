@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface IUsersResetTokenRepository extends MongoRepository<PasswordResetToken, String> {
 
     PasswordResetToken findByToken(String token);
+    PasswordResetToken findByUserId(Long userId);
 }

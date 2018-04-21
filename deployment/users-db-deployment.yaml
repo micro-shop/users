@@ -16,7 +16,6 @@ spec:
       containers:
       - name: users-db
         image: mongo
-
         ports:
         - name: mongo
           containerPort: 27017
